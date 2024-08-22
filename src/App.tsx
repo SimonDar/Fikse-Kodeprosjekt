@@ -4,12 +4,14 @@ import RepairDashboard from './components/RepairDashboard';
 import Auth from './components/auth';
 import FiksePage from './Page/FiksePage';
 import AboutPage from './Page/OmOss';
-import EventsPage from './Page/eventspage';
+import HvaSkjer from './Page/HvaSkjer';
+import DeliveryPage from './Page/HerErVi';
+import RetailPage from './Page/ForRetail';
 
 const App: React.FC = () => {
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <EventsPage />
+      <RetailPage />
     </div>
   );
 }

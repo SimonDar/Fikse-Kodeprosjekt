@@ -15,7 +15,7 @@ const SlideshowGallery: React.FC = () => {
   );
 };
 
-const EventsPage: React.FC = () => {
+const HvaSkjer: React.FC = () => {
   return (
     <div className="font-sans">
       {/* Section 1 */}
@@ -109,6 +109,6 @@ const EventsPage: React.FC = () => {
   );
 };
 
-export default EventsPage;
+export default HvaSkjer;
 
 
