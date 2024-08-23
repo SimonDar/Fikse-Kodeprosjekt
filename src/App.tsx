@@ -18,7 +18,7 @@ import {
   query, where
 } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-
+import EmailForm from "./components/emailtest";
 
 
 //Slett
@@ -164,6 +164,7 @@ const App: React.FC = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+      <EmailForm />
       <Auth />
       <div className="flex space-x-6 items-center justify-center">
         <input
