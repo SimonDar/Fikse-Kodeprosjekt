@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-
 import ProfileCard from "./components/ProfileCard";
 import RepairDashboard from "./components/RepairDashboard";
 import Auth from "./components/auth";
@@ -16,6 +15,7 @@ import {
   deleteDoc,
   doc,
   updateDoc,
+  query, where
 } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
@@ -36,41 +36,22 @@ const convertTimestampToDate = (seconds: number) => {
 };
 
 const App: React.FC = () => {
-  const [repariList, setRepairList] = useState<Repair[]>([]);
-
-  const [newRepair, setNewRepair] = useState<Repair>({} as Repair);
+  const [repairList, setRepairList] = useState<Repair[]>([]);
+  const [newRepair, setNewRepair] = useState<Repair>({
+    id: "",
+    UID: "",
+    status: "pending",
+    time: {
+      seconds: 0,
+      nanoseconds: 0,
+    },
+    type: "",
+  });
   const [userUID, setUserUID] = useState<string | null>(null);
   const [repairType, setRepairType] = useState<string | null>(null);
   const [changeRepairType, setChangeRepairType] = useState<string | null>(null);
 
   const repairCollection = collection(db, "reparasjon");
-
-  const getRepairList = async () => {
-    try {
-      const data = await getDocs(repairCollection);
-      const repairList = data.docs.map((doc) => {
-        const docData = doc.data();
-        return {
-          id: doc.id,
-          UID: docData.UID as string,
-          status: docData.status as string,
-          time: {
-            seconds: docData.time.seconds as number,
-            nanoseconds: docData.time.nanoseconds as number,
-          },
-          type: docData.type as string,
-        };
-      });
-      console.log(repairList);
-      setRepairList(repairList);
-    } catch (error) {
-      console.error("Error fetching repair list:", error);
-    }
-  };
-
-  useEffect(() => {
-    getRepairList();
-  }, []);
 
   useEffect(() => {
     const auth = getAuth();
@@ -89,18 +70,55 @@ const App: React.FC = () => {
     return () => unsubscribe();
   }, []);
 
-  console.log(userUID);
-
-  const onSumbitRepair = async () => {
+  const getRepairList = async () => {
+    console.log("Fetching repair list..." + userUID);
+    if (!userUID) {
+      console.error("User is not authenticated.");
+      return;
+    }
     try {
-      await addDoc(repairCollection, {
-        UID: userUID,
-        status: "pending",
-        time: new Date(),
-        type: repairType,
+      console.log("Fetching query list start...");
+      const q = query(repairCollection, where("UID", "==", userUID));
+      console.log("Querying repair list...");
+        const data = await getDocs(q);
+
+      const repairList = data.docs.map((doc) => {
+        const docData = doc.data();
+        return {
+          id: doc.id,
+          UID: docData.UID as string,
+          status: docData.status as string,
+          time: {
+            seconds: docData.time.seconds as number,
+            nanoseconds: docData.time.nanoseconds as number,
+          },
+          type: docData.type as string,
+        };
       });
-      getRepairList();
-      console.log("Repair added successfully");
+      setRepairList(repairList);
+    } catch (error) {
+      console.error("Error fetching repair list:", error);
+    }
+  };
+
+  useEffect(() => {
+    getRepairList();
+  }, [userUID]);
+
+  const onSubmitRepair = async () => {
+    try {
+      if (userUID && repairType) {
+        await addDoc(repairCollection, {
+          UID: userUID,
+          status: "pending",
+          time: new Date(),
+          type: repairType,
+        });
+        getRepairList();
+        console.log("Repair added successfully");
+      } else {
+        console.error("User is not authenticated or repair type is not set.");
+      }
     } catch (error) {
       console.error("Error adding repair:", error);
     }
@@ -108,25 +126,37 @@ const App: React.FC = () => {
 
   const deleteRepair = async (id: string) => {
     try {
-      const docRef = doc(repairCollection, id);
-      await deleteDoc(docRef);
-      getRepairList();
-      console.log("Repair deleted successfully");
+      const repairToDelete = repairList.find((repair) => repair.id === id);
+      if (repairToDelete?.UID === userUID) {
+        const docRef = doc(repairCollection, id);
+        await deleteDoc(docRef);
+        getRepairList();
+        console.log("Repair deleted successfully");
+      } else {
+        console.log("Unauthorized to delete this repair");
+      }
     } catch (error) {
       console.error("Error deleting repair:", error);
     }
   };
 
-  const changeStatusRepair = async (id: string, changeRepairType: string | null) => {
+  const changeStatusRepair = async (
+    id: string,
+    changeRepairType: string | null
+  ) => {
     try {
-      const docRef = doc(repairCollection, id);
-      await updateDoc(docRef, { status: changeRepairType });
-      getRepairList();
-      console.log("Repair deleted successfully");
+      const repairToUpdate = repairList.find((repair) => repair.id === id);
+      if (repairToUpdate?.UID === userUID && changeRepairType) {
+        const docRef = doc(repairCollection, id);
+        await updateDoc(docRef, { status: changeRepairType });
+        getRepairList();
+        console.log("Repair status updated successfully");
+      } else {
+        console.log("Unauthorized to update this repair or new status not set");
+      }
     } catch (error) {
-      console.error("Error deleting repair:", error);
+      console.error("Error updating repair status:", error);
     }
-
   };
 
   return (
@@ -141,13 +171,13 @@ const App: React.FC = () => {
         />
         <button
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mx-2 rounded mb-4"
-          onClick={onSumbitRepair}
+          onClick={onSubmitRepair}
         >
           Legg til
         </button>
       </div>
       <div>
-        {repariList.map((repairEvent) => ( 
+        {repairList.map((repairEvent) => (
           <ul
             key={repairEvent.id}
             className="border border-gray-300 p-4 rounded shadow-md mb-4"
@@ -157,27 +187,27 @@ const App: React.FC = () => {
             <li>{repairEvent.status}</li>
             <li>{convertTimestampToDate(repairEvent.time.seconds)}</li>
             <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mx-2 rounded mb-4 left"
-          onClick={() => deleteRepair(repairEvent.id)}
-        >
-          slett
-        </button>
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mx-2 rounded mb-4 left"
+              onClick={() => deleteRepair(repairEvent.id)}
+            >
+              slett
+            </button>
 
-        <input
-          type="text"
-          placeholder="endre status"
-          className="border border-gray-300 p-2 rounded shadow-md mb-4"
-          onChange={(e) => setChangeRepairType(e.target.value)}
-        />       
-                  <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mx-2 rounded mb-4 left"
-          onClick={() => changeStatusRepair(repairEvent.id, changeRepairType)}
-        >
-          endre
-        </button>
-        
+            <input
+              type="text"
+              placeholder="endre status"
+              className="border border-gray-300 p-2 rounded shadow-md mb-4"
+              onChange={(e) => setChangeRepairType(e.target.value)}
+            />
+            <button
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mx-2 rounded mb-4 left"
+              onClick={() =>
+                changeStatusRepair(repairEvent.id, changeRepairType)
+              }
+            >
+              endre
+            </button>
           </ul>
-
         ))}
       </div>
     </div>
