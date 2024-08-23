@@ -20,11 +20,8 @@ export const sendContactEmail = functions.https.onCall(async (data: SendContactE
     html: `<p>Hello ${data.name},</p><p>Thank you for contacting us. We received your message:</p><blockquote>"${data.message}"</blockquote><p>We will get back to you shortly.</p><p>Best regards,<br>Your Company Name</p>`,
   };
 
-  try {
+
+  
     await sgMail.send(msg);
     return { success: true };
-  } catch (error) {
-    console.error(error);
-    return { success: false, error: (error as any).message };
-  }
 });
