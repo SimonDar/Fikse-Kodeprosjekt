@@ -19,6 +19,9 @@ import {
 } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
+
+
+//Slett
 interface Repair {
   id: string;
   UID: string;
