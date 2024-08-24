@@ -7,6 +7,7 @@ import AboutPage from "./Page/OmOss";
 import HvaSkjer from "./Page/HvaSkjer";
 import DeliveryPage from "./Page/HerErVi";
 import RetailPage from "./Page/ForRetail";
+import RepairServicePage from "./Page/ForRepearis";
 import { db } from "./assets/firebase";
 import {
   getDocs,
@@ -50,7 +51,7 @@ const App: React.FC = () => {
       case 'herervi':
         setCurrentPage('DeliveryPage');
         break;
-      case 'popup':
+      case 'omoss':
         setCurrentPage('AboutPage');
         break;
       case 'retail':
@@ -62,6 +63,9 @@ const App: React.FC = () => {
       case 'itemlist':
           setCurrentPage('ItemsList');
           break;
+          case 'reperator':
+            setCurrentPage('ForReparis');
+            break;
       case 'FiksePage':
       default:
         setCurrentPage('FiksePage');
@@ -94,8 +98,10 @@ const App: React.FC = () => {
         return <RetailPage />;
       case 'FiksePage':
         return <FiksePage />;
-      case 'ItemsList':
+        case 'ItemsList':
           return <ItemsList />;
+          case 'ForReparis':
+            return <RepairServicePage />
         
       default:
         return <FiksePage />;    
@@ -105,7 +111,7 @@ const App: React.FC = () => {
 
 
   return (
-    <div className="flex flex-col items-center min-h-screen bg-gray-100">
+    <div className="flex flex-col items-center min-h-screen ">
     <div className="border border-black">
       <div className="flex justify-between items-center p-4">
         <div className="h-10">
@@ -118,9 +124,9 @@ const App: React.FC = () => {
         <a href="#bestille" className="hover:underline" onClick={() => setCurrentPage('bestille')}>Bestille</a>
         <a href="#hvaskjer" className="hover:underline" onClick={() => setCurrentPage('HvaSkjer')}>Hva skjer?</a>
         <a href="#herervi" className="hover:underline" onClick={() => setCurrentPage('DeliveryPage')}>Her er vi</a>
-        <a href="#popup" className="hover:underline" onClick={() => setCurrentPage('AboutPage')}>Popup bedrift</a>
+        <a href="#omoss" className="hover:underline" onClick={() => setCurrentPage('AboutPage')}>Om oss</a>
         <a href="#retail" className="hover:underline" onClick={() => setCurrentPage('RetailPage')}>For retail</a>
-        <a href="#reperator" className="hover:underline" onClick={() => setCurrentPage('AboutPage')}>For reparatører</a>
+        <a href="#reperator" className="hover:underline" onClick={() => setCurrentPage('ForReparis')}>For reparatører</a>
         </div>
         <Auth />
       </div>

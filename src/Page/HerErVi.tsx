@@ -59,8 +59,7 @@ const DeliveryPage: React.FC = () => {
         </h1>
         <div className="flex justify-between">
           <div className="w-1/2 flex flex-col items-center">
-            <div className="w-2/3 h-64 bg-gray-300 mb-4"></div>
-            <h2 className="text-xl font-semibold mb-2">Drop off</h2>
+<img src="https://images.squarespace-cdn.com/content/v1/63f62f26dc92952d500bc8e7/f3004499-6ddc-47c8-a52b-ba709fa44404/fikse+launch+1.png?format=400w" alt="" className="w-96 h-96 object-cover"/>            <h2 className="text-xl font-semibold mb-2">Drop off</h2>
             <p className="text-center text-gray-600">
               Vi tilbyr flere drop off stasjoner, slik at du enkelt kan levere
               der det passer deg best.
@@ -85,8 +84,7 @@ const DeliveryPage: React.FC = () => {
             </ul>
           </div>
           <div className="w-1/2 flex flex-col items-center">
-            <div className="w-2/3 h-64 bg-gray-300 mb-4"></div>
-            <h2 className="text-xl font-semibold mb-2">Send med bud</h2>
+<img src="https://images.squarespace-cdn.com/content/v1/63f62f26dc92952d500bc8e7/1677078317866-GXIU46UWJCZDM1IJQZH7/fikse-tape+2.png?format=400w" alt="" className="w-96 h-96 object-cover"  />            <h2 className="text-xl square font-semibold mb-2">Send med bud</h2>
             <p className="text-center text-gray-600">
               Du kan bestille levering med bud, da vil du få en kode fra helt
               hjem og putter pakken utenfor døren, resten fikser vi.
