@@ -21,6 +21,8 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import EmailForm from "./components/emailtest";
 import ItemsList from "./components/items";
 import TopBar from "./components/topBar";
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import Bestille from "./Page/Bestille";
 
 
 
@@ -29,10 +31,53 @@ const App: React.FC = () => {
 
   const [currentPage, setCurrentPage] = useState('ItemsList');
 
+  useEffect(() => {
+  const handleHashChange = () => {
+    const hash = window.location.hash.substring(1); // Remove the '#' from the hash
+    switch (hash) {
+      case 'bestille':
+        setCurrentPage('bestille');
+        break;
+      case 'hvaskjer':
+        setCurrentPage('HvaSkjer');
+        break;
+      case 'herervi':
+        setCurrentPage('DeliveryPage');
+        break;
+      case 'popup':
+        setCurrentPage('AboutPage');
+        break;
+      case 'retail':
+        setCurrentPage('RetailPage');
+        break;
+      case 'reperator':
+        setCurrentPage('AboutPage');
+        break;
+      case 'itemlist':
+          setCurrentPage('ItemsList');
+          break;
+      case 'FiksePage':
+      default:
+        setCurrentPage('FiksePage');
+    }
+  };
+
+  // Run this function when the component mounts
+  handleHashChange();
+
+  // Add an event listener for hash changes
+  window.addEventListener('hashchange', handleHashChange);
+
+  // Clean up the event listener when the component unmounts
+  return () => {
+    window.removeEventListener('hashchange', handleHashChange);
+  };
+}, []);
+
   const renderPage = () => {
     switch (currentPage) {
-      case 'FiksePage':
-        return <FiksePage />;
+      case 'bestille':
+        return  <Bestille/>;
       case 'AboutPage':
         return <AboutPage />;
       case 'HvaSkjer':
@@ -41,27 +86,35 @@ const App: React.FC = () => {
         return <DeliveryPage />;
       case 'RetailPage':
         return <RetailPage />;
+      case 'FiksePage':
+        return <FiksePage />;
+      case 'ItemsList':
+          return <ItemsList />;
+        
       default:
-        return     <ItemsList/>;
+        return <FiksePage />;    
     }
   };
 
 
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+    <div className="flex flex-col items-center min-h-screen bg-gray-100">
     <div className="border border-black">
       <div className="flex justify-between items-center p-4">
         <div className="h-10">
-          <img src="https://www.fikse.co/images/logo.svg" alt="Fikse" className="h-full size-14" />
-        </div>
-        <div className="flex space-x-8 text-lg mx-10">
-        <a href="#a" className="hover:underline" onClick={() => setCurrentPage('FiksePage')}>Bestille</a>
-        <a href="#b" className="hover:underline" onClick={() => setCurrentPage('HvaSkjer')}>Hva skjer?</a>
-        <a href="#c" className="hover:underline" onClick={() => setCurrentPage('DeliveryPage')}>Her er vi</a>
-        <a href="#d" className="hover:underline" onClick={() => setCurrentPage('AboutPage')}>Popup bedrift</a>
-        <a href="#e" className="hover:underline" onClick={() => setCurrentPage('RetailPage')}>For retail</a>
-        <a href="#f" className="hover:underline" onClick={() => setCurrentPage('AboutPage')}>For reparatører</a>
+       <a href="" className="hover:underline" onClick={() => setCurrentPage('FiksePage')}> <img 
+  src="https://www.fikse.co/images/logo.svg" 
+  alt="FiksePage" 
+  className="h-full size-14 cursor-pointer" 
+/>  </a>      </div>
+        <div className="flex space-x-8 text-lg mx-10 ">
+        <a href="#bestille" className="hover:underline" onClick={() => setCurrentPage('bestille')}>Bestille</a>
+        <a href="#hvaskjer" className="hover:underline" onClick={() => setCurrentPage('HvaSkjer')}>Hva skjer?</a>
+        <a href="#herervi" className="hover:underline" onClick={() => setCurrentPage('DeliveryPage')}>Her er vi</a>
+        <a href="#popup" className="hover:underline" onClick={() => setCurrentPage('AboutPage')}>Popup bedrift</a>
+        <a href="#retail" className="hover:underline" onClick={() => setCurrentPage('RetailPage')}>For retail</a>
+        <a href="#reperator" className="hover:underline" onClick={() => setCurrentPage('AboutPage')}>For reparatører</a>
         </div>
         <Auth />
       </div>
@@ -75,7 +128,8 @@ export default App;
       //<EmailForm />
 
       /*
-
+      case 'bestille':
+        return  <ItemsList/>;
 
 
 const convertTimestampToDate = (seconds: number) => {

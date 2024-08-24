@@ -36,12 +36,14 @@ const Auth: React.FC = () => {
     return (
         <div>
             {user ? (
-                <button 
-                    onClick={logout} 
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mb-4 mx-12 mt-4"
-                >
-                    Logout
-                </button>
+                <>
+                 <div className="flex space-x-8 text-lg mx-10 items-center">
+
+            
+                        <a href="#itemlist" className="hover:underline" onClick={() => setCurrentPage('HvaSkjer')}>MineOrdre</a>
+                        <a href="#hvaskjer" className="hover:underline" onClick={logout}>Loggut</a>
+                        </div>
+</>
             ) : (
                 <button 
                     onClick={signInWithGoogle} 
