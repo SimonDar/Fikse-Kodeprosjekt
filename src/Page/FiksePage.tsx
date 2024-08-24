@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import StripeButton from '../components/StripeButton';
 
 
 
@@ -18,6 +18,9 @@ const HomePage: React.FC = () => {
         <h1 className="text-4xl font-bold">
           Det naturlige valget for alt av små reparasjoner
         </h1>
+        <h1>Test Stripe Payment</h1>
+        <StripeButton />
+
         <a href="#bestille"><button className="mt-8 px-6 py-2 border border-black">
           Bestill fiksing
         </button></a>

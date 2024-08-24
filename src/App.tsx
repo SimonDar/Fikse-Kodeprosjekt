@@ -57,9 +57,6 @@ const App: React.FC = () => {
       case 'retail':
         setCurrentPage('RetailPage');
         break;
-      case 'reperator':
-        setCurrentPage('AboutPage');
-        break;
       case 'itemlist':
           setCurrentPage('ItemsList');
           break;

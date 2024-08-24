@@ -1,4 +1,6 @@
 import React from 'react';
+import StripeButton from '../components/StripeButton';
+
 
 const AboutPage: React.FC = () => {
   return (
