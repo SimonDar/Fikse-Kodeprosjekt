@@ -72,7 +72,7 @@ const App: React.FC = () => {
 
     return () => unsubscribe();
   }, []);
-
+ 
   const getRepairList = async () => {
     console.log("Fetching repair list..." + userUID);
     if (!userUID) {
