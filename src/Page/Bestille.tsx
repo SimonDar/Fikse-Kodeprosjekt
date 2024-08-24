@@ -83,6 +83,7 @@ const Bestille: React.FC = () => {
             <Line label="Glidelås" number={100} />
             <Line label="Hull i tilbehør" number={600} />
             <Line label="Belte" number={900} />
+            <Line label="Telt" number={900} />
           </>
         );
       case 4:

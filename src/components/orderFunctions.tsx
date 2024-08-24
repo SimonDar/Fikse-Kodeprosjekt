@@ -13,11 +13,11 @@ import {
 
   const repairCollection = collection(db, "reparasjon");
  
+  export const onSubmitRepair = async (inputType: string, inputPrice: number) => {
 
   const authGlobal = getAuth();
   const userGlobal = authGlobal.currentUser;
 
-  export const onSubmitRepair = async (inputType: string, inputPrice: number) => {
     try {
       if (userGlobal?.uid) {
         await addDoc(repairCollection, {
