@@ -13,6 +13,7 @@ import {
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 
+
 //Slett
 interface Repair {
   id: string;
@@ -154,10 +155,14 @@ const ItemsList: React.FC = () => {
     }
   };
 
+  const authGlobal = getAuth();
+const userGlobal = authGlobal.currentUser;
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
 
                 <div className="flex space-x-6 items-center justify-center">
+                  <h1>{userGlobal?.displayName}'s orders</h1>
                   <input
                     type="text"
                     placeholder="type"

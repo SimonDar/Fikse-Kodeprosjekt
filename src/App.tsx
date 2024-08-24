@@ -31,6 +31,12 @@ const App: React.FC = () => {
 
   const [currentPage, setCurrentPage] = useState('ItemsList');
 
+
+  const auth = getAuth();
+  const user = auth.currentUser;
+  console.log("CONSOLE LOGG APP ");
+  console.log(user);
+
   useEffect(() => {
   const handleHashChange = () => {
     const hash = window.location.hash.substring(1); // Remove the '#' from the hash

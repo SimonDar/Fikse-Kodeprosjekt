@@ -40,7 +40,7 @@ const Auth: React.FC = () => {
                  <div className="flex space-x-8 text-lg mx-10 items-center">
 
             
-                        <a href="#itemlist" className="hover:underline" onClick={() => setCurrentPage('HvaSkjer')}>MineOrdre</a>
+                        <a href="#itemlist" className="hover:underline">Mine Ordre</a>
                         <a href="#hvaskjer" className="hover:underline" onClick={logout}>Loggut</a>
                         </div>
 </>
