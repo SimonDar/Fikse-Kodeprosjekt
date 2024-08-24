@@ -23,25 +23,66 @@ import ItemsList from "./components/items";
 import TopBar from "./components/topBar";
 
 
-//Slett
-interface Repair {
-  id: string;
-  UID: string;
-  status: string;
-  time: {
-    seconds: number;
-    nanoseconds: number;
+
+
+const App: React.FC = () => {
+
+  const [currentPage, setCurrentPage] = useState('ItemsList');
+
+  const renderPage = () => {
+    switch (currentPage) {
+      case 'FiksePage':
+        return <FiksePage />;
+      case 'AboutPage':
+        return <AboutPage />;
+      case 'HvaSkjer':
+        return <HvaSkjer />;
+      case 'DeliveryPage':
+        return <DeliveryPage />;
+      case 'RetailPage':
+        return <RetailPage />;
+      default:
+        return     <ItemsList/>;
+    }
   };
-  type: string;
-}
+
+
+
+  return (
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+    <div className="border border-black">
+      <div className="flex justify-between items-center p-4">
+        <div className="h-10">
+          <img src="https://www.fikse.co/images/logo.svg" alt="Fikse" className="h-full size-14" />
+        </div>
+        <div className="flex space-x-8 text-lg mx-10">
+        <a href="#a" className="hover:underline" onClick={() => setCurrentPage('FiksePage')}>Bestille</a>
+        <a href="#b" className="hover:underline" onClick={() => setCurrentPage('HvaSkjer')}>Hva skjer?</a>
+        <a href="#c" className="hover:underline" onClick={() => setCurrentPage('DeliveryPage')}>Her er vi</a>
+        <a href="#d" className="hover:underline" onClick={() => setCurrentPage('AboutPage')}>Popup bedrift</a>
+        <a href="#e" className="hover:underline" onClick={() => setCurrentPage('RetailPage')}>For retail</a>
+        <a href="#f" className="hover:underline" onClick={() => setCurrentPage('AboutPage')}>For reparatører</a>
+        </div>
+        <Auth />
+      </div>
+    </div>
+    {renderPage()}
+    </div>
+  );
+};
+
+export default App;
+      //<EmailForm />
+
+      /*
+
+
 
 const convertTimestampToDate = (seconds: number) => {
   const date = new Date(seconds * 1000); // Convert seconds to milliseconds
   return date.toLocaleString("en-GB"); // Convert to a human-readable string
 };
-
-const App: React.FC = () => {
-  const [repairList, setRepairList] = useState<Repair[]>([]);
+        const [repairList, setRepairList] = useState<Repair[]>([]);
   const [newRepair, setNewRepair] = useState<Repair>({
     id: "",
     UID: "",
@@ -52,7 +93,20 @@ const App: React.FC = () => {
     },
     type: "",
   });
-  const [userUID, setUserUID] = useState<string | null>(null);
+  
+      //Slett
+interface Repair {
+  id: string;
+  UID: string;
+  status: string;
+  time: {
+    seconds: number;
+    nanoseconds: number;
+  };
+  type: string;
+}
+      
+      const [userUID, setUserUID] = useState<string | null>(null);
   const [repairType, setRepairType] = useState<string | null>(null);
   const [changeRepairType, setChangeRepairType] = useState<string | null>(null);
 
@@ -163,14 +217,4 @@ const App: React.FC = () => {
       console.error("Error updating repair status:", error);
     }
   };
-
-  return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      <TopBar />
-      <ItemsList/>
-    </div>
-  );
-};
-
-export default App;
-      //<EmailForm />
+ */
