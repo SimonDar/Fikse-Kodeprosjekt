@@ -19,7 +19,6 @@ import {
 } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import EmailForm from "./components/emailtest";
-import ItemsList from "./components/items";
 
 
 //Slett
@@ -39,7 +38,7 @@ const convertTimestampToDate = (seconds: number) => {
   return date.toLocaleString("en-GB"); // Convert to a human-readable string
 };
 
-const App: React.FC = () => {
+const ItemsList: React.FC = () => {
   const [repairList, setRepairList] = useState<Repair[]>([]);
   const [newRepair, setNewRepair] = useState<Repair>({
     id: "",
@@ -165,11 +164,57 @@ const App: React.FC = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      <EmailForm />
-      <Auth />
-      <ItemsList/>
+
+                <div className="flex space-x-6 items-center justify-center">
+                  <input
+                    type="text"
+                    placeholder="type"
+                    className="border border-gray-300 p-2 rounded shadow-md mb-4"
+                    onChange={(e) => setRepairType(e.target.value)}
+                  />
+                  <button
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mx-2 rounded mb-4"
+                    onClick={onSubmitRepair}
+                  >
+                    Legg til
+                  </button>
+                </div>
+                <div>
+                  {repairList.map((repairEvent) => (
+                    <ul
+                      key={repairEvent.id}
+                      className="border border-gray-300 p-4 rounded shadow-md mb-4"
+                    >
+                      <li className="font-bold">{repairEvent.id}</li>
+                      <li>{repairEvent.type}</li>
+                      <li>{repairEvent.status}</li>
+                      <li>{convertTimestampToDate(repairEvent.time.seconds)}</li>
+                      <button
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mx-2 rounded mb-4 left"
+                        onClick={() => deleteRepair(repairEvent.id)}
+                      >
+                        slett3
+                      </button>
+
+                      <input
+                        type="text"
+                        placeholder="endre status"
+                        className="border border-gray-300 p-2 rounded shadow-md mb-4"
+                        onChange={(e) => setChangeRepairType(e.target.value)}
+                      />
+                      <button
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mx-2 rounded mb-4 left"
+                        onClick={() =>
+                          changeStatusRepair(repairEvent.id, changeRepairType)
+                        }
+                      >
+                        endre
+                      </button>
+                    </ul>
+                  ))}
+                </div>
     </div>
   );
 };
 
-export default App;
+export default ItemsList;
