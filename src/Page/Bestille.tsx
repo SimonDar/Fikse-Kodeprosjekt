@@ -10,7 +10,7 @@ interface SquareProps {
 
 const Square: React.FC<SquareProps> = ({ label, imgSrc, onClick }) => (
   <div
-    className="border border-black w-64 h-64 flex flex-col relative cursor-pointer"
+    className="border border-black w-[243px] h-[243px] flex flex-col relative cursor-pointer"
     onClick={onClick}
   >
     <span className="absolute top-2 left-2">{label}</span>
@@ -42,7 +42,7 @@ const clickLine = (label: string, number: number) => {
 
 const Line: React.FC<LineProps> = ({ label, number }) => (
   <div
-    className="border border-black w-[1025px] h-14 flex items-center justify-between px-3"
+    className="border border-black w-[972px] h-14 flex items-center justify-between px-3"
     onClick={() => clickLine(label, number)}
   >
     <span>{label}</span>
@@ -100,8 +100,8 @@ const Bestille: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-start justify-start mt-0">
-      <div className="flex items-start justify-start">
+    <div className="flex flex-col items-center justify-center mt-0">
+      <div className="flex items-center justify-center">
         <Square
           label="Klær"
           imgSrc="https://www.fikse.co/images/illustration/category-clothes.svg"
@@ -124,7 +124,9 @@ const Bestille: React.FC = () => {
         />
       </div>
 
-      <div className="items-start justify-start">{renderLines()}</div>
+      <div className="flex flex-col items-center justify-center ">
+        {renderLines()}
+      </div>
     </div>
   );
 };
