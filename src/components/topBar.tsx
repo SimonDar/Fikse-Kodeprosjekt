@@ -16,6 +16,7 @@ const TopBar = () => {
           <a href="#" className="hover:underline">For retail</a>
           <a href="#" className="hover:underline">For reparatører</a>
         </div>
+        <Auth />
       </div>
     </div>
   );
