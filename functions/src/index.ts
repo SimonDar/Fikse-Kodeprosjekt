@@ -3,25 +3,30 @@ import * as admin from 'firebase-admin';
 import * as sgMail from '@sendgrid/mail';
 
 admin.initializeApp();
-sgMail.setApiKey(functions.config().sendgrid.key);
 
-interface SendContactEmailData {
-  email: string;
-  name: string;
-  message: string;
-}
+// Set your SendGrid API Key
+sgMail.setApiKey('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');
 
-export const sendContactEmail = functions.https.onCall(async (data: SendContactEmailData, context) => {
-  const msg = {
-    to: data.email, // Recipient's email
-    from: 'borohone@gmail.com', // Your verified sender email
-    subject: 'Confirmation: We received your message',
-    text: `Hello ${data.name},\n\nThank you for contacting us. We received your message:\n\n"${data.message}"\n\nWe will get back to you shortly.\n\nBest regards,\nYour Company Name`,
-    html: `<p>Hello ${data.name},</p><p>Thank you for contacting us. We received your message:</p><blockquote>"${data.message}"</blockquote><p>We will get back to you shortly.</p><p>Best regards,<br>Your Company Name</p>`,
-  };
+export const sendEmailOnNewReparasjon = functions.firestore
+  .document('reparasjon/{docId}')
+  .onCreate((snap, context) => {
+    const newValue = snap.data();
+    
+    // Construct email content
+    const msg = {
+      to: 'simd73@gmail.com',  // Change to your recipient
+      from: 'fikse@dargahi.no',  // Change to your verified sender
+      subject: 'New Reparasjon Added',
+      text: `A new reparasjon has been added with the following details:\nUID: ${newValue.UID}\nStatus: ${newValue.status}\nTime: ${newValue.time}\nType: ${newValue.type}`,
+      html: `<strong>A new reparasjon has been added:</strong><br>UID: ${newValue.UID}<br>Status: ${newValue.status}<br>Time: ${newValue.time}<br>Type: ${newValue.type}`
+    };
 
-
-  
-    await sgMail.send(msg);
-    return { success: true };
-});
+    // Send the email
+    return sgMail.send(msg)
+      .then(() => {
+        console.log('Email sent successfully');
+      })
+      .catch((error) => {
+        console.error('Error sending email:', error);
+      });
+  });

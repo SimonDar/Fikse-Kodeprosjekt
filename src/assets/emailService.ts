@@ -15,7 +15,7 @@ export const sendEmail = async (payload: EmailPayload): Promise<void> => {
     });
 
     if (!response.ok) {
-        throw new Error(`Failed to seddnd email: ${response.statusText}`);
+        throw new Error(`Failed to send email: ${response.statusText}`);
     }
 };
  

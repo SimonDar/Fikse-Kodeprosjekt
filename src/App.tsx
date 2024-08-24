@@ -194,7 +194,7 @@ const App: React.FC = () => {
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mx-2 rounded mb-4 left"
               onClick={() => deleteRepair(repairEvent.id)}
             >
-              slette
+              slett2
             </button>
 
             <input
