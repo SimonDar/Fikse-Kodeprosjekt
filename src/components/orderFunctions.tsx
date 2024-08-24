@@ -22,7 +22,7 @@ import {
       if (userGlobal?.uid) {
         await addDoc(repairCollection, {
           UID: userGlobal.uid,
-          status: "begained",
+          status: "begun",
           time: new Date(),
           type: inputType,
           price: inputPrice,

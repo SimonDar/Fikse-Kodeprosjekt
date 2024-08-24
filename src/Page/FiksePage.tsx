@@ -136,7 +136,7 @@ const HomePage: React.FC = () => {
         <section className="mt-16 text-center">
           <div className="relative">
             <h2 className="text-5xl font-bold mb-8">
-            POP UP POP UP POP UP POP UP POP UP POP UP POP 
+            POP UP POP UP POP UP POP UP POP UP POP UP POP UP
             </h2>
             <img src="https://images.squarespace-cdn.com/content/v1/63f62f26dc92952d500bc8e7/5c5452a0-bd78-4370-96d3-39f33b52555e/IMG_2792.jpeg?format=2500w"className="absolute top-0  left-1/3 w-64 h-96 bg-gray-300"></img>
             <img src="https://images.squarespace-cdn.com/content/v1/63f62f26dc92952d500bc8e7/7b5360df-9425-4613-9339-19b0f8c04b0f/bcg3.jpeg?format=2500w" className="absolute top-12 left-1/2 w-64 h-96 bg-gray-300"></img>

@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import ProfileCard from "./components/ProfileCard";
-import RepairDashboard from "./components/RepairDashboard";
 import Auth from "./components/auth";
 import FiksePage from "./Page/FiksePage";
 import AboutPage from "./Page/OmOss";
@@ -8,21 +6,9 @@ import HvaSkjer from "./Page/HvaSkjer";
 import DeliveryPage from "./Page/HerErVi";
 import RetailPage from "./Page/ForRetail";
 import RepairServicePage from "./Page/ForRepearis";
-import { db } from "./assets/firebase";
-import {
-  getDocs,
-  collection,
-  addDoc,
-  deleteDoc,
-  doc,
-  updateDoc,
-  query, where
-} from "firebase/firestore";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import EmailForm from "./components/emailtest";
+
+import { getAuth } from "firebase/auth";
 import ItemsList from "./components/items";
-import TopBar from "./components/topBar";
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import Bestille from "./Page/Bestille";
 
 

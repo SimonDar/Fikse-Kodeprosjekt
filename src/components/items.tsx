@@ -182,15 +182,15 @@ const userGlobal = authGlobal.currentUser;
                       key={repairEvent.id}
                       className="border border-gray-300 p-4 rounded shadow-md mb-4"
                     >
-                      <li className="font-bold">{repairEvent.id}</li>
-                      <li>{repairEvent.type}</li>
-                      <li>{repairEvent.status}</li>
-                      <li>{convertTimestampToDate(repairEvent.time.seconds)}</li>
+                      <li className="font-bold">ordre: {repairEvent.id}</li>
+                      <li>type: {repairEvent.type}</li>
+                      <li>Status: {repairEvent.status}</li>
+                      <li>dato: {convertTimestampToDate(repairEvent.time.seconds)}</li>
                       <button
                         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mx-2 rounded mb-4 left"
                         onClick={() => deleteRepair(repairEvent.id)}
                       >
-                        slett3
+                        slett
                       </button>
 
                       <input
