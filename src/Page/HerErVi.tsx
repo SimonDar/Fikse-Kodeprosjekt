@@ -1,7 +1,19 @@
 import React, { useState } from "react";
+import {onSubmiteNewsletter} from "../components/newsletter";
 
 const DeliveryPage: React.FC = () => {
   const [expandedItem, setExpandedItem] = useState<string | null>(null);
+  const [email, setEmail] = useState<string>("");
+
+
+  const handleButtonClick = () => {
+    onSubmiteNewsletter(email);
+    setEmail(""); // Clear the email input
+    alert("Du har noe godt i vente!");
+  };
+
+
+
 
   const items = [
     {
@@ -59,10 +71,10 @@ const DeliveryPage: React.FC = () => {
         </h1>
         <div className="flex justify-between">
           <div className="w-1/2 flex flex-col items-center">
-<img src="https://images.squarespace-cdn.com/content/v1/63f62f26dc92952d500bc8e7/f3004499-6ddc-47c8-a52b-ba709fa44404/fikse+launch+1.png?format=400w" alt="" className="w-96 h-96 object-cover"/>            <h2 className="text-xl font-semibold mb-2">Drop off</h2>
+<img src="https://images.squarespace-cdn.com/content/v1/63f62f26dc92952d500bc8e7/f3004499-6ddc-47c8-a52b-ba709fa44404/fikse+launch+1.png?format=400w" alt="" className="w-96 h-96 object-cover"/>            <h2 className="teemibold mb-2">Drop off</h2>
             <p className="text-center text-gray-600">
               Vi tilbyr flere drop off stasjoner, slik at du enkelt kan levere
-              der det passer deg best.
+              der det passer degbest.
               <br />
               Bestill på Fikse.no. Husk å legge til type fiks slik at du unngår
               ekstra kostnad. Annet sted enn der du droppet, og da er det viktig
@@ -101,7 +113,6 @@ const DeliveryPage: React.FC = () => {
       <section className="relative">
         <img
           src="/path-to-your-background-image.jpg"
-          alt="Background"
           className="absolute inset-0 w-full h-full object-cover"
         />
         <div className="relative flex justify-center items-center py-32">
@@ -112,10 +123,12 @@ const DeliveryPage: React.FC = () => {
             <p className="text-gray-600 mb-8">Vi lover å ikke spamme deg.</p>
             <input
               type="email"
+              value={email} 
               placeholder="E-postadresse"
               className="p-4 border border-gray-300 w-full mb-4"
+              onChange={(e) => setEmail(e.target.value)}
             />
-            <button className="px-6 py-2 bg-black text-white w-full">
+            <button className="px-6 py-2 bg-black text-white w-full" onClick={handleButtonClick}>
               Meld meg på
             </button>
           </div>
