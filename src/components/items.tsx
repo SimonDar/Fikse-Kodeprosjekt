@@ -1,13 +1,6 @@
 import React, { useEffect, useState } from "react";
-import ProfileCard from "./components/ProfileCard";
-import RepairDashboard from "./components/RepairDashboard";
-import Auth from "./components/auth";
-import FiksePage from "./Page/FiksePage";
-import AboutPage from "./Page/OmOss";
-import HvaSkjer from "./Page/HvaSkjer";
-import DeliveryPage from "./Page/HerErVi";
-import RetailPage from "./Page/ForRetail";
-import { db } from "./assets/firebase";
+
+import { db } from "../assets/firebase";
 import {
   getDocs,
   collection,
@@ -18,7 +11,6 @@ import {
   query, where
 } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import EmailForm from "./components/emailtest";
 
 
 //Slett

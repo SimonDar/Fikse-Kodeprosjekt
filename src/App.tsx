@@ -20,6 +20,7 @@ import {
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import EmailForm from "./components/emailtest";
 import ItemsList from "./components/items";
+import TopBar from "./components/topBar";
 
 
 //Slett
@@ -165,7 +166,7 @@ const App: React.FC = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      <EmailForm />
+      <TopBar />
       <Auth />
       <ItemsList/>
     </div>
@@ -173,3 +174,4 @@ const App: React.FC = () => {
 };
 
 export default App;
+      //<EmailForm />
