@@ -19,9 +19,6 @@ npm run dev
 ```
 
 ## Deployment
-Here’s the revised Markdown text:
-
-## Deployment
 
 Because the project is integrated with GitHub Actions, you can simply push to the main branch. When you do this, Firebase will automatically run `npm run build` and generate the `dist` folder, which contains the HTML file and other web elements.
 
@@ -54,7 +51,7 @@ Here’s an explanation of the key elements in the project structure based on th
    
 
 2. **functions**:
-   - The `functions` directory is where I store my Firebase Cloud Functions. These are serverless functions that run in response to events triggered by Firebase features or HTTPS requests. Inside this directory, I usually have the code for these functions, along with a `package.json` file to manage dependencies.
+   - The `functions` directory is where I store my Firebase Cloud Functions. These are serverless functions that run in response to events triggered by Firestore requests, but could be expanded to support future HTTPS requests. Inside this directory, I have the code for these functions, along with a `package.json` file to manage dependencies seperatly from the main React project.
    - There are two firebase fucntions currently active 
 
        - **`sendEmailOnNewReparasjon`**:  
@@ -64,7 +61,7 @@ Here’s an explanation of the key elements in the project structure based on th
          This function monitors changes in the database and sends out a confirmation email when the status of an order is changed to `finish`.
 
 3. **src**:
-   - The `src` directory is where I keep my main application source code. This includes all the React components, TypeScript files, and any other JavaScript or CSS/SCSS files necessary for the application. Essentially, this directory is the core of my project, containing the logic, views, and assets that make up the frontend of my app.
+   - The `src` directory is where I keep the main application source code. This includes all the React components and TypeScript files in use for the end user application. Essentially, this directory is the core of my project, containing the logic, and views.
   
 ## src structure
 
@@ -72,25 +69,25 @@ Here’s an explanation of the key elements in the project structure based on th
   The `assets` folder contains utility and service files that support the application.
 
   - **emailService.ts**:  
-    Currently discontinued, but this file could be re-enabled in the future to send emails directly from the browser through specific commands.
+    Currently discontinued, but this file could be re-enabled in the future to send emails directly from the browser through HTTPS commands.
 
   - **firebase.ts**:  
-    This file handles the configuration and initialization of Firebase. It sets up Firebase services such as Firestore and Authentication, making them accessible throughout the app.
+    This file handles the configuration and initialization of Firebase. It sets up Firebase service configuration making Firestore and Authentication accessible throughout the app.
 
 - **components**  
   The `components` directory holds reusable React components that serve specific functions within the application.
 
   - **auth.tsx**:  
-    This component is responsible for user authentication. It handles logging in and out and dynamically displays either a login button or a combination of "My Orders" and "Logout" options based on the user's authentication status.
+    This component is responsible for user authentication status. It handles logging in and out and dynamically displays either a login button or a combination of "My Orders" and "Logout" options based on the user's authentication status.
 
   - **items.tsx**:  
-    The `items.tsx` component is responsible for displaying items stored in the database. It lists all items, which likely represent available repair services or products. This component serves as a blend of an admin panel and a user panel. It only displays the items that belong to the user but also provides administrative options, such as deleting and editing orders.
+    The `items.tsx` component is responsible for displaying items stored in the database. This component serves as a blend of an admin panel and a user panel. It only displays the items that belong to the user but also provides administrative options, such as deleting and editing orders.
 
   - **orderFunctions.tsx**:  
     This component manages the process of pushing orders to the Firestore database. It handles the logic for creating and managing orders within the application.
 
   - **newsletter.tsx**:  
-    This component contains the functionality for subscribing users to the newsletter. It manages the subscription process and ensures users can sign up for updates.
+    This component contains the functionality for subscribing to the newsletter. It manages the subscription process and ensures users can sign up for updates even without needing to be loggin in.
 
 - **Page**  
   The `Page` directory contains the main pages of the application, corresponding to different routes or views that users can navigate to from the top menu.
@@ -102,34 +99,28 @@ Here’s an explanation of the key elements in the project structure based on th
     The `FiksePage.tsx` serves as the landing page. It features interactive elements next to the phrase "Vi gjør det enkelt og raskt å fikse" and includes a button that takes users to the payment page.
 
   - **HvaSkjer.tsx**:  
-    An informative page, potentially providing updates or news related to the services offered.
+    An informative page.
 
   - **HerErVi.tsx**:  
     This page includes an interactive list of drop-off locations and an email newsletter sign-up. The sign-up form clears after successful subscription.
 
   - **OmOss.tsx**:  
-    An informative page that provides details about the Fikse service.
+    An informative page.
 
   - **ForReparis.tsx**:  
-    A dedicated page for referees.
+    An informative page with an email button.
 
   - **ForRetail.tsx**:  
-    A page specifically for retail partners or customers.
-
-  - **Popup.tsx**:  
-    An informative page that provides details about the popup events.
+    An informative page with an email button.
 
 - **App.tsx**  
-  The `App.tsx` file serves as the root component from which everything else branches out. It typically contains the main application logic, routing, and layout structure.
+  The `App.tsx` file serves as the root component from which everything else branches out. 
 
 - **index.css**  
   The main CSS file that includes global styles for the application.
 
 - **main.tsx**  
   The entry point of the application, where the React app is initialized and rendered.
-
-- **vite-env.d.ts**  
-  This file includes TypeScript definitions for the Vite environment, ensuring proper type checking and IntelliSense support during development.
 
 
 # Firebase
@@ -158,19 +149,19 @@ The database has two collections `newsletter` and `reparasjon`.
   Array of event that has taken place afther order.
 
 - **eventTime**  
-  Timestamps for the arrays.
+  Timestamps for the arrays. For better logging.
 
 - **internalNotes**
-    internal notes
+    Internal notes
 
 - **price**
-    price of order.
+    Price of order.
 
 - **time**
-    time of order.
+    Time of order.
 
 - **type**  
-  what type of repair has been orderd.
+  What type of repair has been orderd.
 
 
 
