@@ -159,22 +159,10 @@ const ItemsList: React.FC = () => {
 const userGlobal = authGlobal.currentUser;
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+    <div className="flex flex-col items-center justify-center min-h-scree">
 
                 <div className="flex space-x-6 items-center justify-center">
-                  <h1>{userGlobal?.displayName}'s orders</h1>
-                  <input
-                    type="text"
-                    placeholder="type"
-                    className="border border-gray-300 p-2 rounded shadow-md mb-4"
-                    onChange={(e) => setRepairType(e.target.value)}
-                  />
-                  <button
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mx-2 rounded mb-4"
-                    onClick={onSubmitRepair}
-                  >
-                    Legg til
-                  </button>
+                  <h3 className="text-xl	font-bold">{userGlobal?.displayName}'s orders</h3>
                 </div>
                 <div>
                   {repairList.map((repairEvent) => (

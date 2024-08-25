@@ -1,5 +1,6 @@
 # Introduction
-This document serves as a guide for understanding the codebaise of this project.
+[https://fikse-kodeprosjekt-analy-f6ff2.web.app](https://fikse-kodeprosjekt-analy-f6ff2.web.app)
+
 # Getting Started
 
 ## Setting up
@@ -49,14 +50,22 @@ Here’s an explanation of the key elements in the project structure based on th
 
 
 1. **.github**:
-   - In the `.github` directory, I keep configurations that are specific to GitHub. This often includes workflows for GitHub Actions, which automate tasks like continuous integration (CI) and continuous deployment (CD). I might also include issue templates, pull request templates, and other settings related to GitHub.
+   - In the `.github` directory, one can find configurations that are specific to GitHub Actions. This includes workflows for GitHub Actions, which automate tasks like continuous integration (CI) and continuous deployment (CD).
+   
 
 2. **functions**:
    - The `functions` directory is where I store my Firebase Cloud Functions. These are serverless functions that run in response to events triggered by Firebase features or HTTPS requests. Inside this directory, I usually have the code for these functions, along with a `package.json` file to manage dependencies.
+   - There are two firebase fucntions currently active 
+
+       - **`sendEmailOnNewReparasjon`**:  
+         This function is responsible for using SendGrid to send an email when a new order is created in the database.
+
+       - **`sendEmailOnReparasjonFinish`**:  
+         This function monitors changes in the database and sends out a confirmation email when the status of an order is changed to `finish`.
 
 3. **src**:
    - The `src` directory is where I keep my main application source code. This includes all the React components, TypeScript files, and any other JavaScript or CSS/SCSS files necessary for the application. Essentially, this directory is the core of my project, containing the logic, views, and assets that make up the frontend of my app.
-   - 
+  
 ## src structure
 
 - **assets**  
@@ -75,7 +84,7 @@ Here’s an explanation of the key elements in the project structure based on th
     This component is responsible for user authentication. It handles logging in and out and dynamically displays either a login button or a combination of "My Orders" and "Logout" options based on the user's authentication status.
 
   - **items.tsx**:  
-    The `items.tsx` component displays items stored in the database. It is responsible for listing all items, likely representing available repair services or products.
+    The `items.tsx` component is responsible for displaying items stored in the database. It lists all items, which likely represent available repair services or products. This component serves as a blend of an admin panel and a user panel. It only displays the items that belong to the user but also provides administrative options, such as deleting and editing orders.
 
   - **orderFunctions.tsx**:  
     This component manages the process of pushing orders to the Firestore database. It handles the logic for creating and managing orders within the application.
@@ -156,9 +165,25 @@ The database has two collections `newsletter` and `reparasjon`.
 
 - **price**
     price of order.
+
 - **time**
     time of order.
+
 - **type**  
   what type of repair has been orderd.
 
-  
+
+
+# Final notes
+
+There are a few bugs in the system, particularly in the order panel. One issue occurs when you start making changes to an order, then switch to another order, and later return to submit the first order. In this scenario, the status of the last modified order is incorrectly applied to the first order. To resolve this, each entity needs to maintain its own state independently.
+
+Additionally, the UI lacks responsiveness and currently requires fullscreen viewing to function properly. To address this, further work on responsive design is necessary, including using Tailwind CSS to ensure compatibility across all screen sizes, such as mobile, tablet, and laptop.
+
+When sending out mail, the emails are getting flagged as spam. This issue might be due to certificate errors, which require further investigation.
+
+Additionally, when utilizing DNS forwarding, such as with [https://fikse.dargahi.no](https://fikse.dargahi.no), the Gmail sign-up API fails to work. This could be due to fraud prevention measures on Google's part, and further work is needed to address this issue.
+
+When clicking the logo to navigate to the home screen, even if the user is already logged in, the "Log in with Google" button briefly flashes.
+
+Additionally, there is no use of `.env` files for environment variables, resulting in the exposure of private API keys.
