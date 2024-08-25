@@ -167,7 +167,7 @@ The database has two collections `newsletter` and `reparasjon`.
 
 # Final notes
 
-There are a few bugs in the system, particularly in the order panel. One issue occurs when you start making changes to an order, then switch to another order, and later return to submit the first order. In this scenario, the status of the last modified order is incorrectly applied to the first order. To resolve this, each entity needs to maintain its own state independently.
+There are a few bugs in the system. In the Mine Ordre panel, one issue occurs when you start making changes to an order, then switch to another order, and later return to submit the first order. In this scenario, the status of the last modified order is incorrectly applied to the first order. To resolve this, each entity needs to maintain its own state independently.
 
 Additionally, the UI lacks responsiveness and currently requires fullscreen viewing to function properly. To address this, further work on responsive design is necessary, including using Tailwind CSS to ensure compatibility across all screen sizes, such as mobile, tablet, and laptop.
 
