@@ -25,15 +25,15 @@ const RepairServicePage: React.FC = () => {
         <div className="flex justify-between">
           <div className="text-center">
             <p className="font-medium mb-4">1. Vi gjør en rask screening og tar kontakt for å avklare hvor mange bestillinger dere ønsker i uken</p>
-            <div className="h-48 bg-gray-300"></div>
+            <img src="https://images.squarespace-cdn.com/content/v1/63f62f26dc92952d500bc8e7/41e081b4-281f-4086-8a1c-18ee62a0a9e7/matekatten.png" alt="" className='max-h-56 mx-auto' />
           </div>
           <div className="text-center">
             <p className="font-medium mb-4">2. Vi leverer bestillinger til avtalt tid. Dere trenger kun å fokusere på håndverket</p>
-            <div className="h-48 bg-gray-300"></div>
+            <img src="https://images.squarespace-cdn.com/content/v1/63f62f26dc92952d500bc8e7/f83a861d-4384-44e8-807b-4592e578a9fd/chille.png" alt="" className='max-h-56 mx-auto' />
           </div>
           <div className="text-center">
             <p className="font-medium mb-4">3. Vi henter plagget ferdig reparert og leverer til kunden</p>
-            <div className="h-48 bg-gray-300"></div>
+            <img src="https://images.squarespace-cdn.com/content/v1/63f62f26dc92952d500bc8e7/09aad925-ffce-4320-af80-2bb71e684f1e/F-case-illustrasjon-3.jpg" alt="" className='max-h-56 mx-auto' />
           </div>
         </div>
       </section>
